@@ -2,32 +2,37 @@ CC = gcc
 CFLAGS = -I./include -Wall 
 LIBS := -lm
 OBJDIR = objects
-SRCDIR = source
+SRCDIR = src
 
-OBJECTS = $(OBJDIR)/matrix.o $(OBJDIR)/node.o $(OBJDIR)/aux.o
+OBJECTS = $(OBJDIR)/edge.o $(OBJDIR)/kruskal.o $(OBJDIR)/quick-union.o $(OBJDIR)/vector.o $(OBJDIR)/vertex.o
 ALL_OBJECTS = $(shell find . -type f -name "*.o" -print) 
 
-all: prog1 build_libs
+all: trab1 build_libs
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 	
-prog1: $(OBJDIR) $(OBJECTS) main1.c
-	$(CC) $(CFLAGS) -o prog1 main1.c $(OBJECTS) $(LIBS)
+trab1: $(OBJDIR) $(OBJECTS) main.c
+	$(CC) $(CFLAGS) -o trab1 main.c $(OBJECTS) $(LIBS)
 
-$(OBJDIR)/matrix.o: $(SRCDIR)/matrix.c
-	$(CC) $(CFLAGS) -c $(SRCDIR)/matrix.c -o $(OBJDIR)/matrix.o
+$(OBJDIR)/edge.o: $(SRCDIR)/edge.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/edge.c -o $(OBJDIR)/edge.o
 
-$(OBJDIR)/node.o: $(SRCDIR)/node.c
-	$(CC) $(CFLAGS) -c $(SRCDIR)/node.c -o $(OBJDIR)/node.o
+$(OBJDIR)/kruskal.o: $(SRCDIR)/kruskal.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/kruskal.c -o $(OBJDIR)/kruskal.o
 
-$(OBJDIR)/aux.o: $(SRCDIR)/aux.c
-	$(CC) $(CFLAGS) -c $(SRCDIR)/aux.c -o $(OBJDIR)/aux.o
+$(OBJDIR)/quick-union.o: $(SRCDIR)/quick-union.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/quick-union.c -o $(OBJDIR)/quick-union.o
 
+$(OBJDIR)/vector.o: $(SRCDIR)/vector.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/vector.c -o $(OBJDIR)/vector.o
+
+$(OBJDIR)/vertex.o: $(SRCDIR)/vertex.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/vertex.c -o $(OBJDIR)/vertex.o
 
 clean:
 
-	rm prog1 $(OBJDIR)/*.o 
+	rm trab1 $(OBJDIR)/*.o 
 	rm -r $(OBJDIR)
 	rm -f *.bin
 	rm -f *.txt

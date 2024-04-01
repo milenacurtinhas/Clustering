@@ -1,11 +1,8 @@
-#include "vector.h"
-#include "quick-union.h"
-#include "edge.h"
-#include "vertex.h"
+#include "kruskal.h"
 
 void kruskal(Vector vertexes, Vector edges)
 {
-    QU set = quick_union(vector_size(vertexes));
+    QU set = QU_init(vector_size(edges));
     vector_sort(edges);
     int i;
     for (i = 0; i < vector_size(edges); i++)

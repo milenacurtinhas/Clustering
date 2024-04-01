@@ -1,9 +1,16 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-typedef struct _vertex *Vertex;
+#include <stdlib.h>
+#include <math.h>
 
-Vertex vertex_init(double *coordinates);
+typedef struct _vertex{
+    char *name;
+    int id;
+    double *coordinates;
+} *Vertex;
+
+Vertex vertex_init(char *name, int id, double *coordinates);
 int vertex_get_id(Vertex v);
 char *vertex_get_name(Vertex v);
 double vertex_distance(Vertex v1, Vertex v2, int m);
