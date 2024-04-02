@@ -32,7 +32,7 @@ $(OBJDIR)/vertex.o: $(SRCDIR)/vertex.c
 
 clean:
 
-	rm trab1 $(OBJDIR)/*.o 
-	rm -r $(OBJDIR)
+	rm -f trab1 $(OBJDIR)/*.o 
+	rm -rf $(OBJDIR)
 	rm -f *.bin
 	rm -f *.txt
