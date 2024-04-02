@@ -53,8 +53,6 @@ int main()
         }
     }
 
-    vector_sort(edges, edge_compare);
-
     // for (int i = 0; i < vector_size(edges); i++)
     // {
     //     Edge e = *(Edge *)vector_at(edges, i);
