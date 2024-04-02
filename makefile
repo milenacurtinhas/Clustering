@@ -7,7 +7,7 @@ SRCDIR = src
 OBJECTS = $(OBJDIR)/edge.o $(OBJDIR)/kruskal.o $(OBJDIR)/quick-union.o $(OBJDIR)/vector.o $(OBJDIR)/vertex.o
 ALL_OBJECTS = $(shell find . -type f -name "*.o" -print) 
 
-all: trab1 build_libs
+all: trab1
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
