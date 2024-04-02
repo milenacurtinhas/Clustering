@@ -5,11 +5,7 @@
 #include "quick-union.h"
 #include <stdlib.h>
 
-typedef struct _edge {
-    double dist;
-    Vertex vertex1;
-    Vertex vertex2;
-} *Edge;
+typedef struct _edge *Edge;
 
 // Calcula a distância e armazena na estrtura.
 Edge edge_init(Vertex vertex1, Vertex vertex2, int m);
@@ -19,5 +15,6 @@ Vertex edge_vertex2(Edge edge);
 
 // Só da free no edge e nao no vertex;
 void edge_destroy(Edge edge);
+int edge_compare(const void *a, const void *b);
 
 #endif

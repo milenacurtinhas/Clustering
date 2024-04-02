@@ -4,11 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-typedef struct _vertex{
-    char *name;
-    int id;
-    double *coordinates;
-} *Vertex;
+typedef struct _vertex *Vertex;
 
 Vertex vertex_init(char *name, int id, double *coordinates);
 int vertex_get_id(Vertex v);

@@ -1,44 +1,60 @@
 #include "vector.h"
+#include <string.h>
 
-Vector vector_init(int initial_cap, int sizeof_member){
-    Vector vector = malloc(initial_cap * sizeof(Vector));
-    vector->data = calloc(initial_cap, sizeof(data_type));
+struct _vector
+{
+    char *data;
+    int size;
+    int allocated;
+    int size_of_member;
+};
+
+Vector vector_init(int initial_cap, int size_of_member)
+{
+    Vector vector = malloc(sizeof(struct _vector));
+
+    vector->data = malloc(initial_cap * size_of_member);
     vector->size = 0;
+    vector->size_of_member = size_of_member;
     vector->allocated = initial_cap;
 
     return vector;
 }
 
-data_type vector_at(Vector vector, int index){
-    if (index >= vector->size || index < 0){
+void *vector_at(Vector vector, int index)
+{
+    if (index >= vector->size || index < 0)
+    {
         printf("Error: vector_get: invalid index %d for vector with size %d.\n", index, vector->size);
         exit(0);
     }
 
-    return vector->data[index];
+    return vector->data + vector->size_of_member * index;
 }
 
-void vector_push(Vector vector, data_type *data){
-    //decidir se o realloc vai ser multiplicar o antigo por 2 ou adicionar um valor fixo
-    if (vector->size == vector->allocated){
+void vector_push(Vector vector, void *data)
+{
+    if (vector->size == vector->allocated)
+    {
         vector->allocated *= 2;
-        vector = realloc(vector, vector->allocated * sizeof(data_type));
+        vector->data = realloc(vector->data, vector->allocated * vector->size_of_member);
     }
-
-    vector[vector->size].data = data;
+    memcpy(vector->data + vector->size * vector->size_of_member, data, vector->size_of_member);
     vector->size++;
 }
 
-
-void vector_sort(Vector vector){
-    //implementar o quicksort
+void vector_sort(Vector vector, vector_compare cmp)
+{
+    qsort(vector->data, vector->size, vector->size_of_member, cmp);
 }
 
-int vector_size(Vector vector){
+int vector_size(Vector vector)
+{
     return vector->size;
 }
 
-void vector_destroy(Vector vector){
-    //chama o edge_destroy daqui?
+void vector_destroy(Vector vector)
+{
+    free(vector->data);
     free(vector);
 }
