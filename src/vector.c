@@ -43,6 +43,11 @@ void vector_push(Vector vector, void *data)
     vector->size++;
 }
 
+void vector_pop(Vector vector, int k){
+    //não removi apenas mudei o tamanho do vetor pra não acessar os últimos
+    vector->size = vector->size - (k-1);
+}
+
 void vector_sort(Vector vector, vector_compare cmp)
 {
     qsort(vector->data, vector->size, vector->size_of_member, cmp);

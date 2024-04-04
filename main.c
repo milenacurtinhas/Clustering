@@ -15,6 +15,8 @@ double H_coord[] = {2.0, 1.0};
 double J_coord[] = {7.0, 4.0};
 double I_coord[] = {6.0, 3.0};
 
+int k = 3;
+
 int main()
 {
     //inicializa vértices
@@ -66,6 +68,8 @@ int main()
 
     //inicializa vetor da MST
     Vector MST = kruskal(vertexes, edges);
+
+    vector_pop(MST, k);
 
     for (int i = 0; i < vector_size(MST); i++)
     {
