@@ -2,7 +2,9 @@
 
 Vector kruskal(Vector vertexes, Vector edges)
 {
+    //inicializa set que não é retornado, então precisa de free na função
     QU set = QU_init(vector_size(edges));
+    //inicializa vetor da MST (mas esse vetor é retornado no final, então não precisa de free na função)
     Vector MST = vector_init(100, sizeof(Edge));
     vector_sort(edges, edge_compare);
     int i;
@@ -19,5 +21,9 @@ Vector kruskal(Vector vertexes, Vector edges)
             QU_union(set, vertex_id1, vertex_id2);
         }
     }
+
+    //dar free no set aqui?? já que não é retornado e só usado nessa função
+    QU_destroy(set);
+    
     return MST;
 }

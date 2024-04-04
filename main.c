@@ -17,6 +17,7 @@ double I_coord[] = {6.0, 3.0};
 
 int main()
 {
+    //inicializa vértices
     Vertex A = vertex_init("A", 0, A_coord);
     Vertex B = vertex_init("B", 1, B_coord);
     Vertex C = vertex_init("C", 2, C_coord);
@@ -28,6 +29,7 @@ int main()
     Vertex I = vertex_init("I", 8, I_coord);
     Vertex J = vertex_init("J", 9, J_coord);
 
+    //inicializa vertores de vértices e arestas
     Vector vertexes = vector_init(30, sizeof(Vertex));
     Vector edges = vector_init(30, sizeof(Edge));
 
@@ -48,6 +50,7 @@ int main()
         for (int j = i + 1; j < vector_size(vertexes); j++)
         {
             Vertex y = *(Vertex *)vector_at(vertexes, j);
+            //inicializa arestas
             Edge e = edge_init(x, y, 2);
             vector_push(edges, &e);
         }
@@ -61,6 +64,7 @@ int main()
     //     printf("%s - %s dist=%lf\n", vertex_get_name(v1), vertex_get_name(v2), edge_distance(e));
     // }
 
+    //inicializa vetor da MST
     Vector MST = kruskal(vertexes, edges);
 
     for (int i = 0; i < vector_size(MST); i++)
@@ -71,9 +75,35 @@ int main()
         printf("%s - %s\n", vertex_get_name(v1), vertex_get_name(v2));
     }
 
-    // TODO: Quebrar agora as k-1 maiores arestas para formar k grupos
+    //destroi vértices
+    vertex_destroy(A);
+    vertex_destroy(B);
+    vertex_destroy(C);
+    vertex_destroy(D);
+    vertex_destroy(E);
+    vertex_destroy(F);
+    vertex_destroy(G);
+    vertex_destroy(H);
+    vertex_destroy(I);
+    vertex_destroy(J);
+
+    //destroi arestas
+    for (int i = 0; i < vector_size(edges); i++)
+    {
+        Edge e = *(Edge *)vector_at(edges, i);
+        edge_destroy(e);
+    }
+
+    //destroi vertores de vértices e arestas
+    vector_destroy(vertexes);
+    vector_destroy(edges);
+
+    //destroi vetor da MST
+    vector_destroy(MST);
+
+    // TODO: Quebrar agora as k-1 maiores arestas para formar k grupos -> dar pop nos k-1 ultimos elementos da MST ?(observar se MST sempre fica ordenada)
     // Não faço ideia ainda como funciona...
-    // E imprimir os grupos
+    // E imprimir os grupos -> dijakstra com prioridade
 
     return 0;
 }
