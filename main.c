@@ -3,7 +3,8 @@
 #include "vector.h"
 #include "vertex.h"
 #include "kruskal.h"
-#include "graph.h"
+#include "reading.h"
+//#include "graph.h"
 
 
 double A_coord[] = {3.0, 7.0};
@@ -19,8 +20,9 @@ double I_coord[] = {6.0, 3.0};
 
 int k = 3;
 
-int main()
+int main(int argc, char* argv[])
 {
+    //read_file(argv[1]);
     //inicializa vértices
     Vertex A = vertex_init("A", 0, A_coord);
     Vertex B = vertex_init("B", 1, B_coord);
@@ -73,7 +75,7 @@ int main()
 
     vector_pop(MST, k-1);
 
-    Vector graph = graph_build(MST, vertexes);
+    //Vector graph = graph_build(MST, vertexes);
 
     for (int i = 0; i < vector_size(MST); i++)
     {
@@ -83,7 +85,7 @@ int main()
         printf("%s - %s\n", vertex_get_name(v1), vertex_get_name(v2));
     }
 
-    print_graph(graph);
+    //print_graph(graph);
 
     //destroi vértices
     vertex_destroy(A);
@@ -111,7 +113,7 @@ int main()
     //destroi vetor da MST
     vector_destroy(MST);
 
-    graph_destroy(graph);
+   //graph_destroy(graph);
 
     // TODO: Quebrar agora as k-1 maiores arestas para formar k grupos -> dar pop nos k-1 ultimos elementos da MST ?(observar se MST sempre fica ordenada)
     // Não faço ideia ainda como funciona...
