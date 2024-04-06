@@ -30,11 +30,12 @@ $(OBJDIR)/vector.o: $(SRCDIR)/vector.c
 $(OBJDIR)/vertex.o: $(SRCDIR)/vertex.c
 	$(CC) $(CFLAGS) -c $(SRCDIR)/vertex.c -o $(OBJDIR)/vertex.o
 
+$(OBJDIR)/graph.o: $(SRCDIR)/graph.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/graph.c -o $(OBJDIR)/graph.o
+
 $(OBJDIR)/reading.o: $(SRCDIR)/reading.c
 	$(CC) $(CFLAGS) -c $(SRCDIR)/reading.c -o $(OBJDIR)/reading.o
 
-$(OBJDIR)/graph.o: $(SRCDIR)/graph.c
-	$(CC) $(CFLAGS) -c $(SRCDIR)/graph.c -o $(OBJDIR)/graph.o
 
 clean:
 
