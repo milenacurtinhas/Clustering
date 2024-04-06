@@ -54,8 +54,9 @@ void vector_push(Vector vector, void *data)
     vector->size++;
 }
 
-void vector_push_at(Vector vector, void *data, int index){
-    if(index >= vector->allocated)
+void vector_push_at(Vector vector, void *data, int index)
+{
+    if (index >= vector->allocated)
     {
         printf("Error: vector_push_at: invalid index %d for vector with size %d.\n", index, vector->size);
         exit(0);
@@ -63,8 +64,9 @@ void vector_push_at(Vector vector, void *data, int index){
     memcpy(vector->data + index * vector->size_of_member, data, vector->size_of_member);
 }
 
-void vector_pop(Vector vector, int k){
-    //não removi apenas mudei o tamanho do vetor pra não acessar os últimos
+void vector_pop(Vector vector, int k)
+{
+    // não removi apenas mudei o tamanho do vetor pra não acessar os últimos
     vector->size = vector->size - k;
 }
 
