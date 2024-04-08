@@ -23,16 +23,16 @@ int main(int argc, char* argv[])
 {
     //read_file(argv[1]);
     //inicializa vértices
-    Vertex A = vertex_init("A", 0, A_coord);
+    Vertex A = vertex_init("A", 9, A_coord);
     Vertex B = vertex_init("B", 1, B_coord);
     Vertex C = vertex_init("C", 2, C_coord);
-    Vertex D = vertex_init("D", 3, D_coord);
+    Vertex D = vertex_init("D", 5, D_coord);
     Vertex E = vertex_init("E", 4, E_coord);
-    Vertex F = vertex_init("F", 5, F_coord);
+    Vertex F = vertex_init("F", 3, F_coord);
     Vertex G = vertex_init("G", 6, G_coord);
     Vertex H = vertex_init("H", 7, H_coord);
-    Vertex I = vertex_init("I", 8, I_coord);
-    Vertex J = vertex_init("J", 9, J_coord);
+    Vertex I = vertex_init("I", 0, I_coord);
+    Vertex J = vertex_init("J", 8, J_coord);
 
     //inicializa vertores de vértices e arestas
     Vector vertexes = vector_init(30, sizeof(Vertex));
@@ -85,7 +85,8 @@ int main(int argc, char* argv[])
     }
 
     print_graph(graph);
-
+    graph_sort(graph);
+    print_graph(graph);
     //destroi vértices
     vertex_destroy(A);
     vertex_destroy(B);

@@ -7,6 +7,17 @@ struct _node
     Vector adjacent;
 };
 
+int graph_compare_names(const void *a, const void *b)
+{
+    const Node a1 = *(Node *)a;
+    const Node a2 = *(Node *)b;
+    int diff = strcmp(vertex_get_name(a1->vertex), vertex_get_name(a2->vertex));
+    if (diff > 0)
+        return 1;
+    else
+        return -1;
+}
+
 Vector graph_build(Vector edges, Vector vertexes)
 {
     Vector graph = vector_static_init(vector_size(vertexes), sizeof(Node));
@@ -35,7 +46,14 @@ Vector graph_build(Vector edges, Vector vertexes)
         node_add_adjacent(n2, index1);
     }
 
+    //vector_sort(graph, graph_compare_names); // ordenar aqui ou não?
+
     return graph;
+}
+
+void graph_sort(Vector graph)
+{
+    vector_sort(graph, graph_compare_names);
 }
 
 void graph_destroy(Vector graph)
