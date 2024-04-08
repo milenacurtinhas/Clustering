@@ -38,6 +38,12 @@ void stack_pop(Stack s, void *ptr)
 
 int stack_empty(Stack s) { return s->last == 0; }
 
+
+void stack_sort()
+{
+
+}
+
 void stack_destroy(Stack s)
 {
     free(s->data);

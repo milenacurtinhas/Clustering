@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "vertex.h": "c",
+        "typeinfo": "c"
+    }
+}

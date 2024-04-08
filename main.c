@@ -7,6 +7,13 @@
 #include "graph.h"
 #include "stack.h"
 
+int vertex_compare_idx(const void *a, const void *b)
+{
+    const Vertex a1 = *(Vertex *)a;
+    const Vertex a2 = *(Vertex *)b;
+    return strcmp(vertex_get_name(a1),vertex_get_name(a2));
+}
+
 double A_coord[] = {3.0, 7.0};
 double B_coord[] = {1.0, 2.0};
 double C_coord[] = {7.0, 3.0};
@@ -22,7 +29,7 @@ int k = 3;
 
 void dfs(Vector graph, Node n)
 {
-
+    Vector components = vector_init(50, sizeof(Vertex));
     Stack s = stack_init(sizeof(Node));
     stack_push(s, &n);
 
@@ -38,7 +45,8 @@ void dfs(Vector graph, Node n)
         Vector adjs = node_get_adjacent(cur);
 
         Vertex v = node_get_vertex(cur);
-        printf("%s ", vertex_get_name(v));
+        vector_push(components, &v);
+        //printf("%s ", vertex_get_name(v));
 
         for (int i = 0; i < vector_size(adjs); i++)
         {
@@ -47,7 +55,15 @@ void dfs(Vector graph, Node n)
             stack_push(s, &adj);
         }
     }
+
+    vector_sort(components, vertex_compare_idx);
+    
+    for(int i = 0; i < vector_size(components); i++){
+        Vertex cur_v = *(Vertex*)(vector_at(components, i));
+        printf("%s ", vertex_get_name(cur_v));
+    }
     printf("\n");
+    vector_destroy(components);
     stack_destroy(s);
 }
 
@@ -71,7 +87,10 @@ void launch(Vector graph)
 
 int main(int argc, char *argv[])
 {
-    // read_file(argv[1]);
+
+    Vector vertexes_teste = vector_init(30, sizeof(Vertex));
+    
+    //read_file(argv[1], vertexes_teste);
     // inicializa vértices
     Vertex A = vertex_init("A", 0, A_coord);
     Vertex B = vertex_init("B", 1, B_coord);
@@ -85,7 +104,7 @@ int main(int argc, char *argv[])
     Vertex J = vertex_init("J", 9, J_coord);
 
     // inicializa vertores de vértices e arestas
-    Vector vertexes = vector_init(30, sizeof(Vertex));
+    Vector vertexes= vector_init(30, sizeof(Vertex));
     Vector edges = vector_init(30, sizeof(Edge));
 
     vector_push(vertexes, &A);
