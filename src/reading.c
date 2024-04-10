@@ -40,7 +40,6 @@ void read_file(const char* filename, Vector vertexes)
         vector_push(vertexes, v);
 
         line_size = getline(&line_buf, &line_buf_size, file);
-        free(ptr);
     }
 
     /* Free the allocated line buffer */
