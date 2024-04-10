@@ -88,11 +88,18 @@ void launch(Vector graph)
 int main(int argc, char *argv[])
 {
 
-    Vector vertexes_teste = vector_init(30, sizeof(Vertex));
+    Vector vertexes_teste = vector_init(50, sizeof(Vertex));
     
-    //read_file(argv[1], vertexes_teste);
+    read_file(argv[1], vertexes_teste);
+
+    for(int i = 0; i < vector_size(vertexes_teste); i++){
+        Vertex v = *(Vertex *)vector_at(vertexes_teste, i);
+        vertex_destroy(v);
+    }
+    vector_destroy(vertexes_teste);
+
     // inicializa vértices
-    Vertex A = vertex_init("A", 0, A_coord);
+    /** Vertex A = vertex_init("A", 0, A_coord);
     Vertex B = vertex_init("B", 1, B_coord);
     Vertex C = vertex_init("C", 2, C_coord);
     Vertex D = vertex_init("D", 3, D_coord);
@@ -186,7 +193,7 @@ int main(int argc, char *argv[])
 
     // TODO: Quebrar agora as k-1 maiores arestas para formar k grupos -> dar pop nos k-1 ultimos elementos da MST ?(observar se MST sempre fica ordenada)
     // Não faço ideia ainda como funciona...
-    // E imprimir os grupos -> dijakstra com prioridade
+    // E imprimir os grupos -> dijakstra com prioridade*/
 
     return 0;
 }

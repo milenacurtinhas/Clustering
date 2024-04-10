@@ -7,12 +7,12 @@ struct _vertex
     double *coordinates;
 };
 
-Vertex vertex_init(char *name, int id, double *coordinates)
+Vertex vertex_init(char *name, double *coordinates)
 {
     Vertex v = (Vertex)malloc(sizeof(struct _vertex));
 
     v->name = name;
-    v->id = id;
+    v->id = 0;
     v->coordinates = coordinates;
 
     return v;
@@ -42,7 +42,7 @@ double vertex_distance(Vertex v1, Vertex v2, int m)
 
 void vertex_destroy(Vertex Vertex)
 {
-    // free(Vertex->name);
-    // free(Vertex->coordinates);
+    //free(Vertex->name);
+    //free(Vertex->coordinates);
     free(Vertex);
 }
