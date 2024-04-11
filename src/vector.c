@@ -62,9 +62,6 @@ void vector_push_at(Vector vector, void *data, int index)
         exit(0);
     }
     memcpy(vector->data + index * vector->size_of_member, data, vector->size_of_member);
-
-    //não devia incrementar o tamanho aqui?
-    vector->size++;
 }
 
 void vector_pop(Vector vector, int k)

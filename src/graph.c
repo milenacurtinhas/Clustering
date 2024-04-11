@@ -46,8 +46,6 @@ Vector graph_build(Vector edges, Vector vertexes)
         node_add_adjacent(n2, index1);
     }
 
-    //vector_sort(graph, graph_compare_names); // ordenar aqui ou não?
-
     return graph;
 }
 

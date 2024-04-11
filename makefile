@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -I./include -Wall 
+CFLAGS = -I./include -Wall -g
 LIBS := -lm
 OBJDIR = objects
 SRCDIR = src

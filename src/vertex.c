@@ -1,4 +1,5 @@
 #include "vertex.h"
+#include <stdio.h>
 
 struct _vertex
 {
@@ -16,6 +17,10 @@ Vertex vertex_init(char *name, double *coordinates)
     v->coordinates = coordinates;
 
     return v;
+}
+
+void vertex_set_id(Vertex v, int id){
+    v->id = id;
 }
 
 int vertex_get_id(Vertex v)
@@ -42,6 +47,10 @@ double vertex_distance(Vertex v1, Vertex v2, int m)
     }
 
     return sqrt(sum);
+}
+
+void vertex_show(Vertex v){
+    printf("%s (%d)\n", v->name, v->id);
 }
 
 void vertex_destroy(Vertex Vertex)

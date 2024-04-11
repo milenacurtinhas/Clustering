@@ -14,19 +14,6 @@ int vertex_compare_idx(const void *a, const void *b)
     return strcmp(vertex_get_name(a1),vertex_get_name(a2));
 }
 
-double A_coord[] = {3.0, 7.0};
-double B_coord[] = {1.0, 2.0};
-double C_coord[] = {7.0, 3.0};
-double D_coord[] = {4.0, 7.0};
-double E_coord[] = {1.0, 1.0};
-double F_coord[] = {6.0, 4.0};
-double G_coord[] = {4.0, 6.0};
-double H_coord[] = {2.0, 1.0};
-double J_coord[] = {7.0, 4.0};
-double I_coord[] = {6.0, 3.0};
-
-int k = 3;
-
 void dfs(Vector graph, Node n)
 {
     Vector components = vector_init(50, sizeof(Vertex));
@@ -73,26 +60,30 @@ void launch(Vector graph)
     {
         Node n = *(Node *)vector_at(graph, i);
 
-        // Se o node já foi visitado, significa que já faz parte de outro grupo.
+        //Se o node já foi visitado, significa que já faz parte de outro grupo.
         if (node_get_visited(n))
         {
             continue;
         }
-        // Vertex v = node_get_vertex(n);
-        // printf("%s\n", vertex_get_name(v));
-        //  Se não foi visitado, então precisa percorrer o grafo
+        //Se não foi visitado, então precisa percorrer o grafo
         dfs(graph, n);
     }
 }
+
+int k = 9;
 
 int main(int argc, char *argv[])
 {
     Vector vertexes = vector_init(50, sizeof(Vertex));
     read_file(argv[1], vertexes);
 
-//TODO: precisa ordenar e colocar os indices dos vértices
+    vector_sort(vertexes, vertex_compare_idx);
 
-/**
+    for(int i = 0; i < vector_size(vertexes); i++){
+        Vertex cur_v = *(Vertex*)(vector_at(vertexes, i));
+        vertex_set_id(cur_v, i);
+    }
+
     Vector edges = vector_init(50, sizeof(Edge));
 
     for (int i = 0; i < vector_size(vertexes); i++)
@@ -114,9 +105,9 @@ int main(int argc, char *argv[])
 
     Vector graph = graph_build(MST, vertexes);
 
-    launch(graph);*/
+    launch(graph);
 
-    // for (int i = 0; i < vector_size(MST); i++)
+    // for (int i = 0; i < vector_size(MST); i++)1
     //{
     //     Edge e = *(Edge *)vector_at(MST, i);
     //     Vertex v1 = edge_vertex1(e);
@@ -127,25 +118,22 @@ int main(int argc, char *argv[])
     // print_graph(graph);
 
     // destroi arestas e vértices
- /**   for (int i = 0; i < vector_size(edges); i++)
+    for (int i = 0; i < vector_size(edges); i++)
     {
         Edge e = *(Edge *)vector_at(edges, i);
         edge_destroy(e);
     }
     
-    vector_destroy(edges);*/
+    vector_destroy(edges);
 
     for(int i = 0; i < vector_size(vertexes); i++){
         Vertex v = *(Vertex *)vector_at(vertexes, i);
 
         vertex_destroy(v);
     }
-    
     vector_destroy(vertexes);
-/**
-    // destroi vetor da MST
     vector_destroy(MST);
-    graph_destroy(graph);*/
+    graph_destroy(graph);
 
     return 0;
 }
