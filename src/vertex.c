@@ -28,6 +28,10 @@ char *vertex_get_name(Vertex v)
     return v->name;
 }
 
+double *vertex_get_coordinates(Vertex v){
+    return v->coordinates;
+}
+
 double vertex_distance(Vertex v1, Vertex v2, int m)
 {
     double sum = 0;
@@ -42,7 +46,7 @@ double vertex_distance(Vertex v1, Vertex v2, int m)
 
 void vertex_destroy(Vertex Vertex)
 {
-    //free(Vertex->name);
-    //free(Vertex->coordinates);
+    free(Vertex->name);
+    free(Vertex->coordinates);
     free(Vertex);
 }

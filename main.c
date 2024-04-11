@@ -87,9 +87,7 @@ void launch(Vector graph)
 
 int main(int argc, char *argv[])
 {
-
     Vector vertexes = vector_init(50, sizeof(Vertex));
-    
     read_file(argv[1], vertexes);
 
 //TODO: precisa ordenar e colocar os indices dos vértices
@@ -139,10 +137,19 @@ int main(int argc, char *argv[])
 
     for(int i = 0; i < vector_size(vertexes); i++){
         Vertex v = *(Vertex *)vector_at(vertexes, i);
-        vertex_destroy(v);
+
+        char* nome = vertex_get_name(v);
+        double* coorde = vertex_get_coordinates(v);
+        
+        printf("%f, %f\n", coorde[0], coorde[1]);
+        //printf("%s\n", nome);
+
+        //vertex_destroy(v);
     }
 
-    vector_destroy(vertexes);
+
+
+    //vector_destroy(vertexes);
 /**
     // destroi vetor da MST
     vector_destroy(MST);
