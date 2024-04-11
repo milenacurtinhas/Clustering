@@ -45,11 +45,6 @@ void dfs(Vector graph, Node n)
 
     vector_sort(components, vertex_compare_idx);
     
-    for(int i = 0; i < vector_size(components); i++){
-        Vertex cur_v = *(Vertex*)(vector_at(components, i));
-        printf("%s ", vertex_get_name(cur_v));
-    }
-    printf("\n");
     vector_destroy(components);
     stack_destroy(s);
 }
@@ -60,6 +55,8 @@ void launch(Vector graph)
     {
         Node n = *(Node *)vector_at(graph, i);
 
+        if(n == NULL)
+            continue;
         //Se o node já foi visitado, significa que já faz parte de outro grupo.
         if (node_get_visited(n))
         {
@@ -70,12 +67,12 @@ void launch(Vector graph)
     }
 }
 
-int k = 9;
+int k = 8;
 
 int main(int argc, char *argv[])
 {
     Vector vertexes = vector_init(50, sizeof(Vertex));
-    read_file(argv[1], vertexes);
+    int dimensity = read_file(argv[1], vertexes);
 
     vector_sort(vertexes, vertex_compare_idx);
 
@@ -93,7 +90,7 @@ int main(int argc, char *argv[])
         {
             Vertex y = *(Vertex *)vector_at(vertexes, j);
             // inicializa arestas
-            Edge e = edge_init(x, y, 2);
+            Edge e = edge_init(x, y, dimensity);
             vector_push(edges, &e);
         }
     }
@@ -104,8 +101,8 @@ int main(int argc, char *argv[])
     vector_pop(MST, k - 1);
 
     Vector graph = graph_build(MST, vertexes);
-
     launch(graph);
+    print_graph(graph);
 
     // for (int i = 0; i < vector_size(MST); i++)1
     //{

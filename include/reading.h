@@ -9,7 +9,7 @@
 #include <string.h>
 
 
-void read_file(const char* filename, Vector vertexes);
+int read_file(const char* filename, Vector vertexes);
 // Calcula a distância e armazena na estrtura.
 
 

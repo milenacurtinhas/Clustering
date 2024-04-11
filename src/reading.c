@@ -17,7 +17,7 @@ int line_dimensity(char *line){
 }
 
 
-void read_file(const char* filename, Vector vertexes)
+int read_file(const char* filename, Vector vertexes)
 {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
@@ -30,11 +30,11 @@ void read_file(const char* filename, Vector vertexes)
 
     /* Loop through until we are done with the file. */
     line_size = getline(&line_buf, &line_buf_size, file);
-    int n = line_dimensity(line_buf);
+    int dimensity = line_dimensity(line_buf);
 
     while (line_size >= 0)
     {
-        double *coordenates = calloc(n, sizeof(double));
+        double *coordenates = calloc(dimensity, sizeof(double));
         char * name = strdup(strtok(line_buf, ",\n"));
 
         char *ptr, *number_char = strtok(NULL, ",\n");
@@ -63,4 +63,6 @@ void read_file(const char* filename, Vector vertexes)
 
     /* Close the file now that we are done with it */
     fclose(file);
+
+    return dimensity;
 }

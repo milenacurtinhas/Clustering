@@ -36,16 +36,50 @@ Vector graph_build(Vector edges, Vector vertexes)
         if(n1 == NULL){
             n1 = node_init(v1);
             vector_push_at(graph, &n1, index1);
+            vector_push_at(vertexes, NULL, index1);
         }
         if(n2 == NULL){
             n2 = node_init(v2);
             vector_push_at(graph, &n2, index2);
+            vector_push_at(vertexes, NULL, index1);
         }
 
         node_add_adjacent(n1, index2);
         node_add_adjacent(n2, index1);
     }
+/**
+    for(int j = 0; j < vector_size(graph); j++){
+        Node n = *(Node *)vector_at(graph, j);
+        if(n != NULL){
+            Vertex v = node_get_vertex(n);
+            printf("%s\n", vertex_get_name(v));
+        }
+    }*/
 
+
+    for(int i = 0; i < vector_size(vertexes); i++){
+        Vertex v = *(Vertex *)vector_at(vertexes, i);
+
+        for(int j = 0; j < vector_size(graph); j++){
+            Node n = *(Node *)vector_at(graph, j);
+
+            if(n != NULL){
+            Vertex v_aux = node_get_vertex(n);
+
+                printf("%s, %s\n", vertex_get_name(v), vertex_get_name(v_aux));
+                if(!(strcmp(vertex_get_name(v), vertex_get_name(v_aux)))){
+                    break;
+                }                
+                else{
+                    int index = vertex_get_id(v);
+                    n = node_init(v);
+                    vector_push_at(graph, &n, index);
+                    //break;
+                }
+            }
+        }
+    }
+    
     return graph;
 }
 
@@ -108,14 +142,21 @@ void print_graph(Vector graph){
     
     for(int i = 0; i < vector_size(graph); i++){
         Node n = *(Node *)vector_at(graph, i);
-        Vertex v = node_get_vertex(n);
-        printf("%s -> ", vertex_get_name(v));
-        Vector adj = node_get_adjacent(n);
-        for(int j = 0; j < vector_size(adj); j++){
-            int id = *(int *)vector_at(adj, j);
-            Node n2 = *(Node *)vector_at(graph, id);
-            Vertex v2 = node_get_vertex(n2);
-            printf("%s ", vertex_get_name(v2));
+
+        if(n != NULL){
+            Vertex v = node_get_vertex(n);
+            printf("%s -> ", vertex_get_name(v));
+            Vector adj = node_get_adjacent(n);
+
+            for(int j = 0; j < vector_size(adj); j++){
+                int id = *(int *)vector_at(adj, j);
+                Node n2 = *(Node *)vector_at(graph, id);
+
+                if(n != NULL){
+                    Vertex v2 = node_get_vertex(n2);
+                    printf("%s ", vertex_get_name(v2));
+                }
+            }
         }
         printf("\n");
     }
