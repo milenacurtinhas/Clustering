@@ -2,6 +2,21 @@
 #include "vertex.h"
 #include <unistd.h>
 
+
+int line_dimensity(char *line){
+    int result = 0;
+
+    while(*line != '\0'){
+        if(*line == ','){
+            result++;
+        }
+        line++;
+    }
+
+    return result;
+}
+
+
 void read_file(const char* filename, Vector vertexes)
 {
     char *line_buf = NULL;
@@ -15,9 +30,11 @@ void read_file(const char* filename, Vector vertexes)
 
     /* Loop through until we are done with the file. */
     line_size = getline(&line_buf, &line_buf_size, file);
+    int n = line_dimensity(line_buf);
+
     while (line_size >= 0)
     {
-        double *coordenates = calloc(2, sizeof(double));
+        double *coordenates = calloc(n, sizeof(double));
         char * name = strdup(strtok(line_buf, ",\n"));
 
         char *ptr, *number_char = strtok(NULL, ",\n");
@@ -31,8 +48,11 @@ void read_file(const char* filename, Vector vertexes)
         }
 
         Vertex v = vertex_init(name, coordenates);
+        //double *coord = vertex_get_coordinates(v);
 
-        vector_push(vertexes, v);
+        //printf("%s: %lf, %lf\n", vertex_get_name(v), coord[0], coord[1]);
+
+        vector_push(vertexes, &v);
 
         line_size = getline(&line_buf, &line_buf_size, file);
     }
@@ -40,7 +60,6 @@ void read_file(const char* filename, Vector vertexes)
 
     /* Free the allocated line buffer */
     free(line_buf);
-    line_buf = NULL;
 
     /* Close the file now that we are done with it */
     fclose(file);
