@@ -3,12 +3,13 @@
 
 #include "vertex.h"
 #include "quick-union.h"
+#include "vector.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 
-void read_file(const char* filename);
+void read_file(const char* filename, Vector vertexes);
 // Calcula a distância e armazena na estrtura.
 
 
