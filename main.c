@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
     Vector vertexes = vector_init(INITIAL_VERTEXES_CAP, sizeof(Vertex));
     Vector edges = vector_init(INITIAL_EDGES_CAP, sizeof(Edge));
 
+    // Pensar se dá pra otimizar a leitura!!!
     int dimension = read_file_of_vertexes(input, vertexes);
     fclose(input);
 
@@ -47,15 +48,21 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Otimizar o QUICK-UNION !!!
     Vector MST = kruskal(vertexes, edges);
     vector_pop(MST, k - 1);
     Vector graph = graph_build(MST, vertexes);
 
+    FILE *output = fopen(argv[3], "w");
+
+    // Depois olhar para ver se da pra otimizar a busca do proximo !!!
     for (int i = 0; i < vector_size(graph); i++) {
         Node n = *(Node *)vector_at(graph, i);
         if (node_get_visited(n)) continue;
-        dfs(graph, n, stdout);
+        dfs(graph, n, output);
     }
+
+    fclose(output);
 
     for (int i = 0; i < vector_size(edges); i++) {
         Edge e1 = *(Edge *)vector_at(edges, i);
