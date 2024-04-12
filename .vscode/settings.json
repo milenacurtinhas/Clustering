@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "functional": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "*.tcc": "c",
+        "string": "c",
+        "streambuf": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }
