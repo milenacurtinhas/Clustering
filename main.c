@@ -8,84 +8,72 @@
 #include "stack.h"
 #include "dfs.h"
 
-void launch(Vector graph)
-{
-    for (int i = 0; i < vector_size(graph); i++)
-    {
-        Node n = *(Node *)vector_at(graph, i);
-
-        // Se o node já foi visitado, significa que já faz parte de outro grupo.
-        if (node_get_visited(n))
-        {
-            continue;
-        }
-        // Se não foi visitado, então precisa percorrer o grafo
-        dfs(graph, n, stdout);
-    }
-}
-
-int k = 3;
+#define INITIAL_VERTEXES_CAP 1000
+#define INITIAL_EDGES_CAP 1000
 
 int main(int argc, char *argv[])
 {
-    Vector vertexes = vector_init(50, sizeof(Vertex));
-    int dimensity = read_file(argv[1], vertexes);
+    if (argc != 4)
+    {
+        printf("usage: %s <file_in> k <file_out>\n", argv[0]);
+        exit(1);
+    }
+
+    int k = atoi(argv[2]);
+    int i, j;
+    Vertex v1, v2;
+    Edge e1;
+    Node n;
+
+    Vector vertexes = vector_init(INITIAL_VERTEXES_CAP, sizeof(Vertex));
+    Vector edges = vector_init(INITIAL_EDGES_CAP, sizeof(Edge));
+
+    int dimension = read_file(argv[1], vertexes);
 
     vector_sort(vertexes, vertex_compare_idx);
 
-    for (int i = 0; i < vector_size(vertexes); i++)
+    for (i = 0; i < vector_size(vertexes); i++)
     {
-        Vertex cur_v = *(Vertex *)(vector_at(vertexes, i));
-        vertex_set_id(cur_v, i);
+        v1 = *(Vertex *)(vector_at(vertexes, i));
+        vertex_set_id(v1, i);
     }
 
-    Vector edges = vector_init(50, sizeof(Edge));
-
-    for (int i = 0; i < vector_size(vertexes); i++)
+    for (i = 0; i < vector_size(vertexes); i++)
     {
-        Vertex x = *(Vertex *)vector_at(vertexes, i);
-        for (int j = i + 1; j < vector_size(vertexes); j++)
+        v1 = *(Vertex *)vector_at(vertexes, i);
+        for (j = i + 1; j < vector_size(vertexes); j++)
         {
-            Vertex y = *(Vertex *)vector_at(vertexes, j);
-            // inicializa arestas
-            Edge e = edge_init(x, y, dimensity);
-            vector_push(edges, &e);
+            v2 = *(Vertex *)vector_at(vertexes, j);
+            e1 = edge_init(v1, v2, dimension);
+            vector_push(edges, &e1);
         }
     }
 
-    // inicializa vetor da MST
     Vector MST = kruskal(vertexes, edges);
-
     vector_pop(MST, k - 1);
-
     Vector graph = graph_build(MST, vertexes);
-    launch(graph);
 
-    // for (int i = 0; i < vector_size(MST); i++)1
-    //{
-    //     Edge e = *(Edge *)vector_at(MST, i);
-    //     Vertex v1 = edge_vertex1(e);
-    //     Vertex v2 = edge_vertex2(e);
-    //     printf("%s - %s\n", vertex_get_name(v1), vertex_get_name(v2));
-    // }
-
-    // print_graph(graph);
-
-    // destroi arestas e vértices
-    for (int i = 0; i < vector_size(edges); i++)
+    for (i = 0; i < vector_size(graph); i++)
     {
-        Edge e = *(Edge *)vector_at(edges, i);
-        edge_destroy(e);
+        n = *(Node *)vector_at(graph, i);
+        if (node_get_visited(n))
+            continue;
+        dfs(graph, n, stdout);
+    }
+
+    for (i = 0; i < vector_size(edges); i++)
+    {
+        e1 = *(Edge *)vector_at(edges, i);
+        edge_destroy(e1);
+    }
+
+    for (i = 0; i < vector_size(vertexes); i++)
+    {
+        v1 = *(Vertex *)vector_at(vertexes, i);
+        vertex_destroy(v1);
     }
 
     vector_destroy(edges);
-
-    for (int i = 0; i < vector_size(vertexes); i++)
-    {
-        Vertex v = *(Vertex *)vector_at(vertexes, i);
-
-        vertex_destroy(v);
-    }
     vector_destroy(vertexes);
     vector_destroy(MST);
     graph_destroy(graph);
