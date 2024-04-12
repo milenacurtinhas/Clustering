@@ -4,7 +4,7 @@ LIBS := -lm
 OBJDIR = objects
 SRCDIR = src
 
-OBJECTS = $(OBJDIR)/edge.o $(OBJDIR)/kruskal.o $(OBJDIR)/quick-union.o $(OBJDIR)/vector.o $(OBJDIR)/vertex.o $(OBJDIR)/graph.o $(OBJDIR)/stack.o $(OBJDIR)/reading.o $(OBJDIR)/dfs.o
+OBJECTS = $(OBJDIR)/edge.o $(OBJDIR)/kruskal.o $(OBJDIR)/quick-union.o $(OBJDIR)/vector.o $(OBJDIR)/vertex.o $(OBJDIR)/graph.o $(OBJDIR)/stack.o $(OBJDIR)/reading.o $(OBJDIR)/dfs.o $(OBJDIR)/bits.o
 ALL_OBJECTS = $(shell find . -type f -name "*.o" -print) 
 
 all: trab1
@@ -42,6 +42,8 @@ $(OBJDIR)/reading.o: $(SRCDIR)/reading.c
 $(OBJDIR)/dfs.o: $(SRCDIR)/dfs.c
 	$(CC) $(CFLAGS) -c $(SRCDIR)/dfs.c -o $(OBJDIR)/dfs.o
 
+$(OBJDIR)/bits.o: $(SRCDIR)/bits.c
+	$(CC) $(CFLAGS) -c $(SRCDIR)/bits.c -o $(OBJDIR)/bits.o
 
 clean:
 
