@@ -11,7 +11,7 @@ int vertex_compare_idx(const void *a, const void *b)
 {
     const Vertex a1 = *(Vertex *)a;
     const Vertex a2 = *(Vertex *)b;
-    return strcmp(vertex_get_name(a1),vertex_get_name(a2));
+    return strcmp(vertex_get_name(a1), vertex_get_name(a2));
 }
 
 void dfs(Vector graph, Node n)
@@ -33,7 +33,7 @@ void dfs(Vector graph, Node n)
 
         Vertex v = node_get_vertex(cur);
         vector_push(components, &v);
-        //printf("%s ", vertex_get_name(v));
+        printf("%s ", vertex_get_name(v));
 
         for (int i = 0; i < vector_size(adjs); i++)
         {
@@ -42,9 +42,9 @@ void dfs(Vector graph, Node n)
             stack_push(s, &adj);
         }
     }
-
+    printf("\n");
     vector_sort(components, vertex_compare_idx);
-    
+
     vector_destroy(components);
     stack_destroy(s);
 }
@@ -55,19 +55,17 @@ void launch(Vector graph)
     {
         Node n = *(Node *)vector_at(graph, i);
 
-        if(n == NULL)
-            continue;
-        //Se o node já foi visitado, significa que já faz parte de outro grupo.
+        // Se o node já foi visitado, significa que já faz parte de outro grupo.
         if (node_get_visited(n))
         {
             continue;
         }
-        //Se não foi visitado, então precisa percorrer o grafo
+        // Se não foi visitado, então precisa percorrer o grafo
         dfs(graph, n);
     }
 }
 
-int k = 8;
+int k = 10;
 
 int main(int argc, char *argv[])
 {
@@ -76,8 +74,9 @@ int main(int argc, char *argv[])
 
     vector_sort(vertexes, vertex_compare_idx);
 
-    for(int i = 0; i < vector_size(vertexes); i++){
-        Vertex cur_v = *(Vertex*)(vector_at(vertexes, i));
+    for (int i = 0; i < vector_size(vertexes); i++)
+    {
+        Vertex cur_v = *(Vertex *)(vector_at(vertexes, i));
         vertex_set_id(cur_v, i);
     }
 
@@ -102,7 +101,6 @@ int main(int argc, char *argv[])
 
     Vector graph = graph_build(MST, vertexes);
     launch(graph);
-    print_graph(graph);
 
     // for (int i = 0; i < vector_size(MST); i++)1
     //{
@@ -120,10 +118,11 @@ int main(int argc, char *argv[])
         Edge e = *(Edge *)vector_at(edges, i);
         edge_destroy(e);
     }
-    
+
     vector_destroy(edges);
 
-    for(int i = 0; i < vector_size(vertexes); i++){
+    for (int i = 0; i < vector_size(vertexes); i++)
+    {
         Vertex v = *(Vertex *)vector_at(vertexes, i);
 
         vertex_destroy(v);
