@@ -1,5 +1,6 @@
 #include "vertex.h"
 #include <stdio.h>
+#include <string.h>
 
 struct _vertex
 {
@@ -19,7 +20,8 @@ Vertex vertex_init(char *name, double *coordinates)
     return v;
 }
 
-void vertex_set_id(Vertex v, int id){
+void vertex_set_id(Vertex v, int id)
+{
     v->id = id;
 }
 
@@ -33,7 +35,8 @@ char *vertex_get_name(Vertex v)
     return v->name;
 }
 
-double *vertex_get_coordinates(Vertex v){
+double *vertex_get_coordinates(Vertex v)
+{
     return v->coordinates;
 }
 
@@ -49,8 +52,16 @@ double vertex_distance(Vertex v1, Vertex v2, int m)
     return sqrt(sum);
 }
 
-void vertex_show(Vertex v){
+void vertex_show(Vertex v)
+{
     printf("%s (%d)\n", v->name, v->id);
+}
+
+int vertex_compare_idx(const void *a, const void *b)
+{
+    const Vertex a1 = *(Vertex *)a;
+    const Vertex a2 = *(Vertex *)b;
+    return strcmp(vertex_get_name(a1), vertex_get_name(a2));
 }
 
 void vertex_destroy(Vertex Vertex)

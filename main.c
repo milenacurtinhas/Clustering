@@ -6,48 +6,7 @@
 #include "reading.h"
 #include "graph.h"
 #include "stack.h"
-
-int vertex_compare_idx(const void *a, const void *b)
-{
-    const Vertex a1 = *(Vertex *)a;
-    const Vertex a2 = *(Vertex *)b;
-    return strcmp(vertex_get_name(a1), vertex_get_name(a2));
-}
-
-void dfs(Vector graph, Node n)
-{
-    Vector components = vector_init(50, sizeof(Vertex));
-    Stack s = stack_init(sizeof(Node));
-    stack_push(s, &n);
-
-    while (!stack_empty(s))
-    {
-        Node cur = NULL;
-        stack_pop(s, &cur);
-        if (node_get_visited(cur))
-        {
-            continue;
-        }
-        node_set_visited(cur);
-        Vector adjs = node_get_adjacent(cur);
-
-        Vertex v = node_get_vertex(cur);
-        vector_push(components, &v);
-        printf("%s ", vertex_get_name(v));
-
-        for (int i = 0; i < vector_size(adjs); i++)
-        {
-            int index = *(int *)vector_at(adjs, i);
-            Node adj = *(Node *)vector_at(graph, index);
-            stack_push(s, &adj);
-        }
-    }
-    printf("\n");
-    vector_sort(components, vertex_compare_idx);
-
-    vector_destroy(components);
-    stack_destroy(s);
-}
+#include "dfs.h"
 
 void launch(Vector graph)
 {
@@ -61,11 +20,11 @@ void launch(Vector graph)
             continue;
         }
         // Se não foi visitado, então precisa percorrer o grafo
-        dfs(graph, n);
+        dfs(graph, n, stdout);
     }
 }
 
-int k = 10;
+int k = 3;
 
 int main(int argc, char *argv[])
 {
