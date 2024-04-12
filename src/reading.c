@@ -13,12 +13,11 @@ int line_dimension(char *line) {
     return result;
 }
 
-int read_file(const char *filename, Vector vertexes) {
+int read_file_of_vertexes(FILE *file, Vector vertexes) {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
     ssize_t line_size = 0;
 
-    FILE *file = fopen(filename, "r");
     if (!file) {
         printf("ERROR: couldn't find the file given!\n");
     }
@@ -53,9 +52,6 @@ int read_file(const char *filename, Vector vertexes) {
 
     /* Free the allocated line buffer */
     free(line_buf);
-
-    /* Close the file now that we are done with it */
-    fclose(file);
 
     return dimension;
 }

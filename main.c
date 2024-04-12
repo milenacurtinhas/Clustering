@@ -19,11 +19,18 @@ int main(int argc, char *argv[]) {
     }
 
     int k = atoi(argv[2]);
+    FILE *input = fopen(argv[1], "r");
+
+    if (!input) {
+        printf("error: canot open file\n");
+        exit(1);
+    }
 
     Vector vertexes = vector_init(INITIAL_VERTEXES_CAP, sizeof(Vertex));
     Vector edges = vector_init(INITIAL_EDGES_CAP, sizeof(Edge));
 
-    int dimension = read_file(argv[1], vertexes);
+    int dimension = read_file_of_vertexes(input, vertexes);
+    fclose(input);
 
     vector_sort(vertexes, vertex_compare_idx);
     for (int i = 0; i < vector_size(vertexes); i++) {
