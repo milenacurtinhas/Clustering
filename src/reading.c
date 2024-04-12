@@ -14,7 +14,7 @@ int vertex_dimension(char *line) {
 }
 
 int read_file_of_vertexes(FILE *file, Vector vertexes) {
-    char *line;
+    char *line = NULL;
     size_t size = 0;
     ssize_t read = getline(&line, &size, file);
     int dimension = vertex_dimension(line);
