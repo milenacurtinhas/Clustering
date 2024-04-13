@@ -37,11 +37,15 @@ void QUB_union(QUB qub, int p, int q) {
 }
 
 int QUB_find(QUB qub, int p) {
-    return 1;
+    while (p != qub->id[p]) {
+        qub->id[p] = qub->id[qub->id[p]];  // Uma unica linha de codigo adicional.
+        p = qub->id[p];                  // Cada passo agora requer 5 acessos.
+    }
+    return p;
 }
 
 bool QUB_connected(QUB qub, int p, int q) {
-    return true;
+    return QUB_find(qub, p) == QUB_find(qub, q);
 }
 
 void QUB_destroy(QUB qub) {
