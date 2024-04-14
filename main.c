@@ -10,7 +10,6 @@
 #include "vertex.h"
 
 #define INITIAL_VERTEXES_CAP 1000
-#define INITIAL_EDGES_CAP 1000
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
@@ -27,11 +26,13 @@ int main(int argc, char *argv[]) {
     }
 
     Vector vertexes = vector_init(INITIAL_VERTEXES_CAP, sizeof(Vertex));
-    Vector edges = vector_init(INITIAL_EDGES_CAP, sizeof(Edge));
 
     // Pensar se dá pra otimizar a leitura!!!
     int dimension = read_file_of_vertexes(input, vertexes);
     fclose(input);
+
+    size_t vertexes_size = vector_size(vertexes);
+    Vector edges = vector_init(((vertexes_size) *(vertexes_size -1) / 2) + 10, sizeof(Edge));
 
     vector_sort(vertexes, vertex_compare_idx);
     for (int i = 0; i < vector_size(vertexes); i++) {

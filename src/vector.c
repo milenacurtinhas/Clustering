@@ -4,12 +4,12 @@
 
 struct _vector {
     char *data;
-    int size;
-    int allocated;
-    int size_of_member;
+    size_t size;
+    size_t allocated;
+    size_t size_of_member;
 };
 
-Vector vector_init(int initial_cap, int size_of_member) {
+Vector vector_init(size_t initial_cap, size_t size_of_member) {
     Vector vector = malloc(sizeof(struct _vector));
 
     vector->data = calloc(initial_cap, size_of_member);
@@ -20,7 +20,7 @@ Vector vector_init(int initial_cap, int size_of_member) {
     return vector;
 }
 
-Vector vector_static_init(int initial_cap, int size_of_member) {
+Vector vector_static_init(size_t initial_cap, size_t size_of_member) {
     Vector vector = malloc(sizeof(struct _vector));
 
     vector->data = calloc(initial_cap, size_of_member);
@@ -31,7 +31,7 @@ Vector vector_static_init(int initial_cap, int size_of_member) {
     return vector;
 }
 
-void *vector_at(Vector vector, int index) {
+void *vector_at(Vector vector, size_t index) {
     if (index >= vector->allocated) {
         return NULL;
     }
@@ -50,19 +50,15 @@ void vector_push(Vector vector, void *data) {
     vector->size++;
 }
 
-void vector_set(Vector vector, void *data, int index) {
+void vector_set(Vector vector, void *data, size_t index) {
     if (index >= vector->allocated) {
-        printf(
-            "Error: vector_set: invalid index %d for vector with size "
-            "%d.\n",
-            index, vector->size);
-        exit(0);
+        exit(1);
     }
     memcpy(vector->data + index * vector->size_of_member, data,
            vector->size_of_member);
 }
 
-void vector_pop(Vector vector, int k) {
+void vector_pop(Vector vector, size_t k) {
     vector->size = vector->size - k;
 }
 
@@ -70,7 +66,7 @@ void vector_sort(Vector vector, vector_compare cmp) {
     qsort(vector->data, vector->size, vector->size_of_member, cmp);
 }
 
-int vector_size(Vector vector) {
+size_t vector_size(Vector vector) {
     return vector->size;
 }
 

@@ -33,7 +33,8 @@ void dfs(Vector graph, Node n, FILE *output) {
 
     for (int i = 0; i < vector_size(group); i++) {
         Vertex v = *(Vertex *)vector_at(group, i);
-        fprintf(output, "%s ", vertex_get_name(v));
+        fprintf(output, "%s", vertex_get_name(v));
+        if (i < vector_size(group) -1) fprintf(output, ",");
     }
 
     fprintf(output, "\n");
