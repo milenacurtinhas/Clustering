@@ -9,7 +9,8 @@
 #include "vector.h"
 #include "vertex.h"
 
-#define INITIAL_VERTEXES_CAP 1000
+// Avoid realloc
+#define INITIAL_VERTEXES_CAP 30010
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
@@ -27,12 +28,10 @@ int main(int argc, char *argv[]) {
 
     Vector vertexes = vector_init(INITIAL_VERTEXES_CAP, sizeof(Vertex));
 
-    // Pensar se dá pra otimizar a leitura!!!
     int dimension = read_file_of_vertexes(input, vertexes);
     fclose(input);
 
     size_t vertexes_size = vector_size(vertexes);
-    Vector edges = vector_init(((vertexes_size) *(vertexes_size -1) / 2) + 10, sizeof(Edge));
 
     vector_sort(vertexes, vertex_compare_idx);
     for (int i = 0; i < vector_size(vertexes); i++) {
@@ -40,23 +39,35 @@ int main(int argc, char *argv[]) {
         vertex_set_id(v1, i);
     }
 
-    for (int i = 0; i < vector_size(vertexes); i++) {
-        Vertex v1 = *(Vertex *)vector_at(vertexes, i);
-        for (int j = i + 1; j < vector_size(vertexes); j++) {
-            Vertex v2 = *(Vertex *)vector_at(vertexes, j);
-            Edge e1 = edge_init(v1, v2, dimension);
-            vector_push(edges, &e1);
-        }
-    }
+    size_t edges_size = ((vertexes_size) * (vertexes_size - 1) / 2);
+    Vector edges = vector_init(edges_size, sizeof(EdgeStruct));
 
-    // Otimizar o QUICK-UNION !!!
+    int cont = 0;
+     for (int i = 0; i < vector_size(vertexes); i++) {
+         Vertex v1 = *(Vertex *)vector_at(vertexes, i) ;
+         int mult = vector_size(vertexes) * (i + 1) + i;
+         for (int j = i + 1; j < vector_size(vertexes); j++) {
+            Vertex v2 = *(Vertex *)vector_at(vertexes, j);
+            double dist = vertex_distance(v1, v2, dimension);
+            EdgeStruct edge = (EdgeStruct){
+                .dist = dist,
+                .id =mult,
+            };
+            vector_push(edges, &edge);   
+            mult += vector_size(vertexes);
+            cont++;
+         }
+     }
+
+    vector_sort(edges, edge_cmp);
+
     Vector MST = kruskal(vertexes, edges);
     vector_pop(MST, k - 1);
+
     Vector graph = graph_build(MST, vertexes);
 
     FILE *output = fopen(argv[3], "w");
 
-    // Depois olhar para ver se da pra otimizar a busca do proximo !!!
     for (int i = 0; i < vector_size(graph); i++) {
         Node n = *(Node *)vector_at(graph, i);
         if (node_get_visited(n)) continue;
@@ -64,11 +75,6 @@ int main(int argc, char *argv[]) {
     }
 
     fclose(output);
-
-    for (int i = 0; i < vector_size(edges); i++) {
-        Edge e1 = *(Edge *)vector_at(edges, i);
-        edge_destroy(e1);
-    }
 
     for (int i = 0; i < vector_size(vertexes); i++) {
         Vertex v1 = *(Vertex *)vector_at(vertexes, i);
