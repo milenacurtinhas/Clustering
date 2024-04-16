@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "dfs.h"
+#include "edge.h"
 #include "graph.h"
 #include "kruskal.h"
 #include "reading.h"
@@ -9,7 +9,7 @@
 #include "vector.h"
 #include "vertex.h"
 
-// Avoid realloc
+// Evita realloc
 #define INITIAL_VERTEXES_CAP 30010
 
 int main(int argc, char *argv[]) {
@@ -33,7 +33,12 @@ int main(int argc, char *argv[]) {
 
     size_t vertexes_size = vector_size(vertexes);
 
-    vector_sort(vertexes, vertex_compare_idx);
+    if(k > vertexes_size){
+        printf("error: number of edges to be removed greater than number of existing edges\n");
+        exit(1);
+    }
+
+    vector_sort(vertexes, vertex_compare_name);
     for (int i = 0; i < vector_size(vertexes); i++) {
         Vertex v1 = *(Vertex *)(vector_at(vertexes, i));
         vertex_set_id(v1, i);

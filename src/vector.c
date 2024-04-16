@@ -1,7 +1,5 @@
 #include "vector.h"
 
-#include <string.h>
-
 struct _vector {
     char *data;
     size_t size;
@@ -45,6 +43,7 @@ void vector_push(Vector vector, void *data) {
         vector->data =
             realloc(vector->data, vector->allocated * vector->size_of_member);
     }
+
     memcpy(vector->data + vector->size * vector->size_of_member, data,
            vector->size_of_member);
     vector->size++;

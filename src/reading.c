@@ -1,15 +1,15 @@
 #include "reading.h"
 
-#include <unistd.h>
-
-#include "vertex.h"
-
 int vertex_dimension(char *line) {
     int result = 0;
+
+    // Conta a quantidade de vírgulas na linha, 
+    // visto que as coordenadas são separadas por vírgulas as quantidades são equivalentes
     while (*line) {
         if (*line == ',') result++;
         line++;
     }
+    
     return result;
 }
 

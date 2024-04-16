@@ -1,8 +1,5 @@
 #include "vertex.h"
 
-#include <stdio.h>
-#include <string.h>
-
 struct _vertex {
     char *name;
     int id;
@@ -37,14 +34,17 @@ double *vertex_get_coordinates(Vertex v) {
 
 double vertex_distance(Vertex v1, Vertex v2, int m) {
     double sum = 0;
+
     for (int i = 0; i < m; i++)
         sum += pow(v1->coordinates[i] - v2->coordinates[i], 2.0);
+
     return sqrt(sum);
 }
 
-int vertex_compare_idx(const void *a, const void *b) {
+int vertex_compare_name(const void *a, const void *b) {
     const Vertex a1 = *(Vertex *)a;
     const Vertex a2 = *(Vertex *)b;
+    
     return strcmp(vertex_get_name(a1), vertex_get_name(a2));
 }
 

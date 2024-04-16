@@ -13,9 +13,11 @@ void dfs(Vector graph, Node n, FILE *output) {
     while (!stack_empty(s)) {
         Node cur = NULL;
         stack_pop(s, &cur);
+
         if (node_get_visited(cur)) {
             continue;
         }
+        
         node_set_visited(cur);
         Vector adjs = node_get_adjacent(cur);
 
@@ -29,7 +31,7 @@ void dfs(Vector graph, Node n, FILE *output) {
         }
     }
 
-    vector_sort(group, vertex_compare_idx);
+    vector_sort(group, vertex_compare_name);
 
     for (int i = 0; i < vector_size(group); i++) {
         Vertex v = *(Vertex *)vector_at(group, i);

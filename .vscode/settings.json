@@ -1,15 +1,5 @@
 {
     "files.associations": {
-        "functional": "c",
-        "stdio.h": "c",
-        "*.tcc": "c",
-        "string": "c",
-        "streambuf": "c",
-        "array": "c",
-        "string_view": "c",
-        "initializer_list": "c",
-        "utility": "c",
-        "quick-union.h": "c",
-        "vertex.h": "c"
+        "string.h": "c"
     }
 }

@@ -1,17 +1,18 @@
 #include "kruskal.h"
-#include "edge.h"
 
 Vector kruskal(Vector vertexes, Vector edges) {
-
     QU set = QU_init(vector_size(vertexes));
     Vector MST = vector_init(100, sizeof(int));
 
     for (int i = 0; i < vector_size(edges); i++) {
         EdgeStruct *e = (EdgeStruct *)vector_at(edges, i);
+
         int idx_v1 = (int)e->id/vector_size(vertexes);
         int idx_v2 = (e->id - idx_v1 * vector_size(vertexes));
+
         Vertex v1 = *(Vertex*)vector_at(vertexes, idx_v1);
         Vertex v2 = *(Vertex*)vector_at(vertexes, idx_v2);
+
         int vertex_id1 = vertex_get_id(v1);
         int vertex_id2 = vertex_get_id(v2);
 
