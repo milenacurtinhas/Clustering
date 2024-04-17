@@ -33,6 +33,11 @@ int main(int argc, char *argv[]) {
 
     size_t vertexes_size = vector_size(vertexes);
 
+    if(k < 0){
+        printf("error: number of edges to be removed must be zero or greater than zero\n");
+        exit(1);
+    }
+
     if(k > vertexes_size){
         printf("error: number of edges to be removed greater than number of existing edges\n");
         exit(1);
