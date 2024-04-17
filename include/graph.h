@@ -12,7 +12,8 @@ typedef struct _node *Node;
 typedef int (*graph_compare)(const void *, const void *);
 
 /**
- * @brief Constrói um grafo a partir de um vetor de arestas e um vetor de vértices.
+ * @brief Constrói um grafo a partir de um vetor de arestas e um vetor de vértices. 
+ * O(N+M), sendo N a quantidade de vértices e M a quantidade de arestas
  * 
  * @param edges Vetor de arestas
  * @param vertexes Vetor de vértices
@@ -76,7 +77,7 @@ Vertex node_get_vertex(Node node);
 Vector node_get_adjacent(Node node);
 
 /**
- * @brief Libera a memória alocada pelo nó
+ * @brief Libera a memória alocada pelo nó. O(N).
  * 
  * @param node Nó a ser liberado
  */
