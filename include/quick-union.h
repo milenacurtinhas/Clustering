@@ -7,7 +7,7 @@
 typedef struct _quick_union *QU;
 
 /**
- * @brief Inicializa a estrutura de dados Quick Union. O(N).
+ * @brief Inicializa a estrutura de dados Quick Union
  * 
  * @param N Número de elementos
  * @return Estrutura de dados Quick Union
@@ -15,7 +15,7 @@ typedef struct _quick_union *QU;
 QU QU_init(int N);
 
 /**
- * @brief Realiza a união dos conjuntos de p e q. O(N).
+ * @brief Realiza a união dos conjuntos de p e q
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p
@@ -24,7 +24,7 @@ QU QU_init(int N);
 void QU_union(QU qu, int p, int q);
 
 /**
- * @brief Encontra o conjunto de p. O(N).
+ * @brief Encontra o conjunto de p
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p
@@ -33,7 +33,7 @@ void QU_union(QU qu, int p, int q);
 int QU_find(QU qu, int p);
 
 /**
- * @brief Verifica se p e q estão conectados. O(N).
+ * @brief Verifica se p e q estão conectados
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p

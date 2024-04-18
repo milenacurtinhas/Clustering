@@ -77,7 +77,7 @@ Vertex node_get_vertex(Node node);
 Vector node_get_adjacent(Node node);
 
 /**
- * @brief Libera a memória alocada pelo nó. O(N).
+ * @brief Libera a memória alocada pelo nó
  * 
  * @param node Nó a ser liberado
  */

@@ -19,14 +19,12 @@ int graph_compare_names(const void *a, const void *b) {
 Vector graph_build(Vector edges, Vector vertexes) {
     Vector graph = vector_static_init(vector_size(vertexes), sizeof(Node));
 
-    // adiciona os vértices no grafo. O(N), sendo N a quantidade de vértices
     for (int i = 0; i < vector_size(graph); i++) {
         Vertex v = *(Vertex *)vector_at(vertexes, i);
         Node n1 = node_init(v);
         vector_set(graph, &n1, i);
     }
 
-    // adiciona as arestas no grafo. O(M), sendo M a quantidade de arestas
     for (int i = 0; i < vector_size(edges); i++) {
         int idx = *(int *)vector_at(edges, i);
 

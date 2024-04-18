@@ -10,7 +10,7 @@ typedef struct _vector *Vector;
 typedef int (*vector_compare)(const void *, const void *);
 
 /**
- * @brief Inicializa um vetor de tamanho dinâmico. O(1).
+ * @brief Inicializa um vetor de tamanho dinâmico
  * 
  * @param initial_cap Capacidade inicial do vetor
  * @param size_of_member Tamanho do membro do vetor
@@ -19,7 +19,7 @@ typedef int (*vector_compare)(const void *, const void *);
 Vector vector_init(size_t initial_cap, size_t size_of_member);
 
 /**
- * @brief Inicializa um vetor de tamanho estático. O(1).
+ * @brief Inicializa um vetor de tamanho estático
  * 
  * @param initial_cap Capacidade do vetor
  * @param size_of_member Tamanho do membro do vetor
@@ -28,7 +28,7 @@ Vector vector_init(size_t initial_cap, size_t size_of_member);
 Vector vector_static_init(size_t initial_cap, size_t size_of_member);
 
 /**
- * @brief Retorna conteúdo do vetor na posição desejada. O(1).
+ * @brief Retorna conteúdo do vetor na posição desejada
  * 
  * @param vector Vetor com o conteúdo desejado
  * @param index Posição desejada

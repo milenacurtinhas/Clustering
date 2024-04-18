@@ -9,7 +9,7 @@ typedef struct {
 } EdgeStruct;
 
 /**
- * @brief Compara duas arestas pela distância
+ * @brief Compara duas arestas pela distância.
  * 
  * @param a Aresta 1
  * @param b Aresta 2
