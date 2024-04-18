@@ -15,7 +15,7 @@ typedef struct _quick_union *QU;
 QU QU_init(int N);
 
 /**
- * @brief Realiza a união dos conjuntos de p e q. O(1).
+ * @brief Realiza a união dos conjuntos de p e q. O(N).
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p
@@ -24,7 +24,7 @@ QU QU_init(int N);
 void QU_union(QU qu, int p, int q);
 
 /**
- * @brief Encontra o conjunto de p. O(?)-> pior caso: O(N), melhor caso: O(1).
+ * @brief Encontra o conjunto de p. O(N).
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p
@@ -33,7 +33,7 @@ void QU_union(QU qu, int p, int q);
 int QU_find(QU qu, int p);
 
 /**
- * @brief Verifica se p e q estão conectados. O(1).
+ * @brief Verifica se p e q estão conectados. O(N).
  * 
  * @param qu Estrutura de dados Quick Union
  * @param p Elemento p
